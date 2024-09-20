@@ -1,0 +1,3 @@
+C:/Users/MonaL/Documents/StudiumFH/5.Semester/EffizienteProg/String-Class-try2/cmake-build-debug-mingw_clang/CMakeFiles/String_Class_try2.dir
+C:/Users/MonaL/Documents/StudiumFH/5.Semester/EffizienteProg/String-Class-try2/cmake-build-debug-mingw_clang/CMakeFiles/edit_cache.dir
+C:/Users/MonaL/Documents/StudiumFH/5.Semester/EffizienteProg/String-Class-try2/cmake-build-debug-mingw_clang/CMakeFiles/rebuild_cache.dir

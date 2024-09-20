@@ -1,0 +1,3 @@
+C:/Users/MonaL/OneDrive/Documents/FHTW/5.Semester/EffizienteProg/String-Class-try2-novs/String-Class-try2-novs/cmake-build-debug/CMakeFiles/String_Class_try2.dir
+C:/Users/MonaL/OneDrive/Documents/FHTW/5.Semester/EffizienteProg/String-Class-try2-novs/String-Class-try2-novs/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/MonaL/OneDrive/Documents/FHTW/5.Semester/EffizienteProg/String-Class-try2-novs/String-Class-try2-novs/cmake-build-debug/CMakeFiles/rebuild_cache.dir

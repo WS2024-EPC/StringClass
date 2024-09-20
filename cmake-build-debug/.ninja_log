@@ -1,0 +1,14 @@
+# ninja log v6
+23	623	7484580921806157	CMakeFiles/String_Class_try2.dir/string.cpp.obj	bcd1a9db4cb0b042
+15	637	7484580921726443	CMakeFiles/String_Class_try2.dir/main.cpp.obj	6701472e1c18a932
+637	815	7484580927942797	String_Class_try2.exe	9c83d479a2ef7259
+19	636	7484581475601416	CMakeFiles/String_Class_try2.dir/main.cpp.obj	6701472e1c18a932
+637	775	7484581481783191	String_Class_try2.exe	9c83d479a2ef7259
+27	615	7484586237522083	CMakeFiles/String_Class_try2.dir/string.cpp.obj	bcd1a9db4cb0b042
+18	625	7484586237428747	CMakeFiles/String_Class_try2.dir/main.cpp.obj	6701472e1c18a932
+625	770	7484586243503949	String_Class_try2.exe	9c83d479a2ef7259
+24	608	7484586404913229	CMakeFiles/String_Class_try2.dir/main.cpp.obj	6701472e1c18a932
+609	768	7484586410764916	String_Class_try2.exe	9c83d479a2ef7259
+27	569	7484595301320439	CMakeFiles/String_Class_try2.dir/string.cpp.obj	bcd1a9db4cb0b042
+18	576	7484595301230434	CMakeFiles/String_Class_try2.dir/main.cpp.obj	6701472e1c18a932
+576	718	7484595306806951	String_Class_try2.exe	9c83d479a2ef7259

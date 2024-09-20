@@ -1,0 +1,11 @@
+# ninja log v5
+7	344	7484521045905587	CMakeFiles/String_Class_try2.dir/main.cpp.obj	8b663bf45678eda6
+3	342	7484521045895581	CMakeFiles/String_Class_try2.dir/string.cpp.obj	8dede6deb14cc438
+344	443	7484521046860816	String_Class_try2.exe	cf19e17d4453ce28
+7	438	7484553044590141	CMakeFiles/String_Class_try2.dir/string.cpp.obj	8dede6deb14cc438
+3	444	7484553044650139	CMakeFiles/String_Class_try2.dir/main.cpp.obj	8b663bf45678eda6
+444	568	7484553045821103	String_Class_try2.exe	cf19e17d4453ce28
+3	356	7484553293000604	CMakeFiles/String_Class_try2.dir/string.cpp.obj	8dede6deb14cc438
+357	454	7484553293949575	String_Class_try2.exe	cf19e17d4453ce28
+3	370	7484553381617146	CMakeFiles/String_Class_try2.dir/string.cpp.obj	8dede6deb14cc438
+370	473	7484553382624468	String_Class_try2.exe	cf19e17d4453ce28
