@@ -40,7 +40,7 @@ String& String::operator=(const String& other) {
 }
 
 // move constructor
-String::String(String&& other)
+String::String(String&& other) noexcept
 {
     str_ = other.str_;
     other.str_ = nullptr; // nullify the other object resource
@@ -117,8 +117,4 @@ void String::append_single(const char* stringToAppend) {
 // append using String object
 void String::append_single(const String& stringToAppend) {
     append_single(stringToAppend.c_str());
-}
-
-void String::set_string(char* newStr) {
-    str_ = newStr;
 }
