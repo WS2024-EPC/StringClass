@@ -30,14 +30,25 @@
 *.a
 *.lib
 
-# Executables
+# Executables and Object files
 *.exe
 *.out
 *.app
+*.pdb
+*.ilk
+*.ninja
+*.obj
+*.o
+*.log
+
 
 ### CLion ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# IDE specific stuff
+.idea/
+.vscode/
 
 # User-specific stuff
 .idea/**/workspace.xml
@@ -80,6 +91,12 @@
 
 # CMake
 cmake-build-*/
+out/build/
+
+# Ignore CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
 
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
