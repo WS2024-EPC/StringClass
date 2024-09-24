@@ -26,8 +26,8 @@ public:
     String& append(const String& first, Args... args);
 
 private:
-    char* m_str; // dynamic size
-    int m_length = 0;
+    char* str_; // dynamic size
+    int length_ = 0;
 
     void append_single(const char* stringToAppend);
     void append_single(const String& stringToAppend);
