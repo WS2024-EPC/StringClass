@@ -39,6 +39,23 @@ String& String::operator=(const String& other) {
     return *this;
 }
 
+// move constructor
+String::String(String&& other)
+{
+    str_ = other.str_;
+    other.str_ = nullptr; // nullify the other object resource
+}
+
+// move assignment operator
+String& String::operator=(String&& other) noexcept {
+    if (this != &other) {
+        delete[] str_; // free existing resource
+        str_ = other.str_; // transfer ownership
+        other.str_ = nullptr; // nullify source
+    }
+    return *this;
+}
+
 // overwrite destination with toCopy
 // copy toCopy into destination
 // add null termination character at the end of toCopy in destination
@@ -100,4 +117,8 @@ void String::append_single(const char* stringToAppend) {
 // append using String object
 void String::append_single(const String& stringToAppend) {
     append_single(stringToAppend.c_str());
+}
+
+void String::set_string(char* newStr) {
+    str_ = newStr;
 }

@@ -9,9 +9,11 @@ public:
     String();
     String(const char* str); // not explicit to allow implicit conversion from char* to String
     String(const String& other);
+    String(String&& other) noexcept ;
     ~String();
 
     String& operator=(const String& other);
+    String& operator=(String&& other) noexcept;
 
     static void charCopy(char* destination, const char* toCopy);
     static int charLength(const char* charArray);
