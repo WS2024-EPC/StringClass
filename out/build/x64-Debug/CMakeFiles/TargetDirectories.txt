@@ -1,3 +1,0 @@
-C:/Users/MonaL/Documents/StudiumFH/5.Semester/EffizienteProg/String-Class-try2/out/build/x64-Debug/CMakeFiles/String_Class_try2.dir
-C:/Users/MonaL/Documents/StudiumFH/5.Semester/EffizienteProg/String-Class-try2/out/build/x64-Debug/CMakeFiles/edit_cache.dir
-C:/Users/MonaL/Documents/StudiumFH/5.Semester/EffizienteProg/String-Class-try2/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
