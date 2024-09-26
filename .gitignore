@@ -49,6 +49,7 @@
 # IDE specific stuff
 .idea/
 .vscode/
+.vs/
 
 # User-specific stuff
 .idea/**/workspace.xml

@@ -99,8 +99,53 @@ TEST_CASE("Check chain append with String instances") {
     String str5 = " still";
     String str6 = " super";
     String str7 = String(" creative)");
-    str1.append(str2, str3, str4, str5, str6, str7);
+    str1.append(str2).append(str3).append(str4).append(str5).append(str6).append(str7);
     CHECK(std::strcmp(str1.c_str(), "Hello World again (I'm still super creative)") == 0);
+}
+
+TEST_CASE("Check move constructor"){
+    String str = "Hello";
+    String otherStr = std::move(str);
+    CHECK(str.c_str() == nullptr);
+    CHECK(str.length() == 0);
+    CHECK(std::strcmp(otherStr.c_str(), "Hello") == 0);
+    CHECK(otherStr.length() == 5);
+}
+
+TEST_CASE("Check move assignment operator"){
+    String str = "Hello";
+    String otherStr;
+    otherStr = std::move(str);
+    CHECK(str.c_str() == nullptr);
+    CHECK(str.length() == 0);
+    CHECK(std::strcmp(otherStr.c_str(), "Hello") == 0);
+    CHECK(otherStr.length() == 5);
+}
+
+TEST_CASE("Check move constructor with empty string") {
+    String emptyStr;
+    String movedStr = std::move(emptyStr);
+    CHECK(emptyStr.c_str() == nullptr);
+    CHECK(emptyStr.length() == 0);
+    CHECK(movedStr.c_str() == nullptr);
+    CHECK(movedStr.length() == 0);
+}
+
+TEST_CASE("Check move assignment with empty string") {
+    String emptyStr;
+    String otherStr;
+    otherStr = std::move(emptyStr);
+    CHECK(emptyStr.c_str() == nullptr);
+    CHECK(emptyStr.length() == 0);
+    CHECK(otherStr.c_str() == nullptr);
+    CHECK(otherStr.length() == 0);
+}
+
+TEST_CASE("Check move assignment self-assignment") {
+    String str = "Hello";
+    str = std::move(str);
+    CHECK(std::strcmp(str.c_str(), "Hello") == 0);  // Original String bleibt gleich
+    CHECK(str.length() == 5);
 }
 
 // TEST_CASE("") {
