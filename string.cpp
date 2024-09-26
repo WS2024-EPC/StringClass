@@ -40,10 +40,10 @@ String& String::operator=(const String& other) {
 }
 
 // move constructor
-String::String(String&& other) noexcept
+String::String(String&& other) noexcept: str_(other.str_), length_(other.length_)
 {
-    str_ = other.str_;
     other.str_ = nullptr; // nullify the other object resource
+    other.length_ = 0;
 }
 
 // move assignment operator
@@ -51,7 +51,9 @@ String& String::operator=(String&& other) noexcept {
     if (this != &other) {
         delete[] str_; // free existing resource
         str_ = other.str_; // transfer ownership
+        length_ = other.length_;
         other.str_ = nullptr; // nullify source
+        other.length_ = 0;
     }
     return *this;
 }
