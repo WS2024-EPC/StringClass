@@ -148,6 +148,96 @@ TEST_CASE("Check move assignment self-assignment") {
     CHECK(str.length() == 5);
 }
 
+TEST_CASE("Check initialisation with nullptr") {
+    String str = String(nullptr);
+    CHECK(str.length() == 0);
+    CHECK(str.c_str() == nullptr);
+}
+
+TEST_CASE("Check append with nullptr (nullptr -> string)") {
+    String str1 = String(nullptr);
+    String str2 = String("Hello");
+    str1.append(str2);
+    CHECK(std::strcmp(str1.c_str(), "Hello") == 0);
+    CHECK(str1.length() == 5);
+}
+
+TEST_CASE("Check append with nullptr (string -> nullptr)") {
+    String str1 = String("Hello");
+    String str2 = String(nullptr);
+    str1.append(str2);
+    CHECK(std::strcmp(str1.c_str(), "Hello") == 0);
+    CHECK(str1.length() == 5);
+}
+
+TEST_CASE("Check append with nullptr (nullptr -> nullptr)") {
+    String str1 = String(nullptr);
+    String str2 = String(nullptr);
+    str1.append(str2);
+    CHECK(str1.c_str() == nullptr);
+}
+
+TEST_CASE("Check constructor with nullptr") {
+    String str1(nullptr);
+    CHECK(str1.c_str() == nullptr);
+    CHECK(str1.length() == 0);
+
+    String str2 = String("Hello");
+    CHECK(std::strcmp(str2.c_str(), "Hello") == 0);
+    CHECK(str2.length() == 5);
+}
+
+TEST_CASE("Check copy constructor with nullptr") {
+    String str1(nullptr);
+    String str2 = str1;
+    CHECK(str2.c_str() == nullptr);
+    CHECK(str2.length() == 0);
+}
+
+TEST_CASE("Check assignment operator with nullptr") {
+    String str1 = String("Hello");
+    String str2 = String(nullptr);
+    str1 = str2;
+    CHECK(str1.c_str() == nullptr);
+    CHECK(str1.length() == 0);
+}
+
+TEST_CASE("Check move constructor and move assignment operator with nullptr") {
+    String str1 = String("Hello");
+    String str2 = std::move(str1);
+    CHECK(str2.c_str() != nullptr);
+    CHECK(std::strcmp(str2.c_str(), "Hello") == 0);
+    CHECK(str1.c_str() == nullptr); // str1 should be null after move
+    CHECK(str2.length() == 5);
+    CHECK(str1.length() == 0);
+
+    String str3 = String("World");
+    str3 = std::move(str2);
+    CHECK(str3.c_str() != nullptr);
+    CHECK(std::strcmp(str3.c_str(), "Hello") == 0);
+    CHECK(str2.c_str() == nullptr); // str2 should be null after move
+    CHECK(str2.length() == 0);
+}
+
+TEST_CASE("Check multiple append with nullptr and non-null strings") {
+    String str1 = String(nullptr);
+    str1.append("Hello", " ", "World", nullptr);
+    CHECK(std::strcmp(str1.c_str(), "Hello World") == 0); // Appended strings
+    CHECK(str1.length() == 11);
+
+    String str2 = String("Initial");
+    str2.append(nullptr, "String");
+    CHECK(std::strcmp(str2.c_str(), "InitialString") == 0); // Appends only the valid string
+    CHECK(str2.length() == 13);
+}
+
+TEST_CASE("Check assignment operator with self-assignment") {
+    String str1 = String("Hello");
+    str1 = str1; // Self-assignment should do nothing
+    CHECK(std::strcmp(str1.c_str(), "Hello") == 0);
+    CHECK(str1.length() == 5);
+}
+
 // TEST_CASE("") {
 //     CHECK();
 // }
