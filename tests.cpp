@@ -291,7 +291,8 @@ TEST_CASE("Check move assignment operator with nullptr string") {
 TEST_CASE("Check copy assignment operator and copy constructor") {
     String word = "Hello";
     String wordCopy = "other";
-    wordCopy = word;
+    wordCopy = word; //Nur Zuweisung --> DANN copy assignment
+    //String wordCopy = word --> wär copy constructor, weil wordcopy erst constructed wird
     CHECK(std::strcmp(wordCopy.c_str(), word.c_str()) == 0);
     String copyConstructed = String(word);
     CHECK(std::strcmp(copyConstructed.c_str(), word.c_str()) == 0);
