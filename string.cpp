@@ -1,9 +1,7 @@
 #include "String.h"
 
 // constructor without parameter
-String::String() {
-    str_ = nullptr;
-}
+String::String() : str_(nullptr) {}
 
 // constructor with char* parameter
 String::String(const char* str) {
