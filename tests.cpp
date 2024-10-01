@@ -6,6 +6,14 @@
 #include "doctest.h"
 #include "string.h"
 
+TEST_CASE("Check += operator overload") {
+    String str1 = "Hello";
+    String str2 = " World";
+    CHECK(std::strcmp(str1.c_str(), "Hello") == 0);
+    str1 += str2;
+    CHECK(std::strcmp(str1.c_str(), "Hello World") == 0);
+}
+
 TEST_CASE("Check empty string length") {
     String empty = String("");
     CHECK(empty.length() == 0);

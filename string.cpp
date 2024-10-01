@@ -146,3 +146,35 @@ void String::append_single(const char* stringToAppend) {
 void String::append_single(const String& stringToAppend) {
     append_single(stringToAppend.c_str());
 }
+
+// operator+= for String
+String& String::operator+=(const String& other) {
+    this->append(other);
+    return *this;
+}
+
+// operator+= for const char*
+String& String::operator+=(const char* other) {
+    this->append(other);
+    return *this;
+}
+
+// operator+ for String
+String String::operator+(const String& other) const {
+    String result(*this);
+    result += other;
+    return result;
+}
+
+// operator+ for const char*
+String String::operator+(const char* other) const {
+    String result(*this);
+    result += other;
+    return result;
+}
+
+// conversion operator to const char*
+// allows implicit conversion from String to const char*
+String::operator const char*() const {
+    return c_str();
+}

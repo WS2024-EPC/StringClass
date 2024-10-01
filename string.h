@@ -15,6 +15,13 @@ public:
     String& operator=(const String& other);
     String& operator=(String&& other) noexcept;
 
+    String operator+(const String& other) const;
+    String operator+(const char* other) const;
+    String& operator+=(const String& other);
+    String& operator+=(const char* other);
+
+    operator const char*() const;
+
     static void charCopy(char* destination, const char* toCopy);
     static size_t charLength(const char* charArray);
 
