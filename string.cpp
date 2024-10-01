@@ -9,7 +9,7 @@ String::String(const char* str) {
         str_ = nullptr;
         return;
     }
-    int length = charLength(str);
+    size_t length = charLength(str);
     str_ = new char[length + 1];
     charCopy(str_, str);  // copy new string into member
     length_ = length;
@@ -80,7 +80,7 @@ void String::charCopy(char* destination, const char* toCopy) {
         return;
     }
 
-    int i = 0;
+    size_t i = 0;
     while(toCopy[i] != '\0') {
         destination[i] = toCopy[i];
         ++i;
@@ -94,17 +94,17 @@ const char* String::c_str() const {
 }
 
 // length_ getter
-int String::length() const {
+size_t String::length() const {
     return length_;
 }
 
 // iterate through passed char* to determine length
-int String::charLength(const char* charArray) {
+size_t String::charLength(const char* charArray) {
     if (charArray == nullptr) {
         return 0;
     }
 
-    int i = 0;
+    size_t i = 0;
     while(charArray[i] != '\0') {
         ++i;
     }
@@ -119,7 +119,7 @@ void String::append_single(const char* stringToAppend) {
     }
 
     if (str_ == nullptr) {
-        int appendLength = charLength(stringToAppend);
+        size_t appendLength = charLength(stringToAppend);
         str_ = new char[appendLength + 1];  // allocate space
         charCopy(str_, stringToAppend);     // copy the new string
         length_ = appendLength;
@@ -127,7 +127,7 @@ void String::append_single(const char* stringToAppend) {
     }
 
     // determine how long newStr has to be
-    int appendLength = charLength(stringToAppend);
+    size_t appendLength = charLength(stringToAppend);
     char* newStr = new char[length_ + appendLength + 1];  // +1 for \0 string termination
 
     // copy old string into new

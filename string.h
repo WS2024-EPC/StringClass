@@ -16,10 +16,10 @@ public:
     String& operator=(String&& other) noexcept;
 
     static void charCopy(char* destination, const char* toCopy);
-    static int charLength(const char* charArray);
+    static size_t charLength(const char* charArray);
 
     const char* c_str() const;
-    int length() const;
+    size_t length() const;
 
     template<typename... Args>
     String& append(const char* first, Args... args);
@@ -29,7 +29,7 @@ public:
 
 private:
     char* str_; // dynamic size
-    int length_ = 0;
+    size_t length_ = 0;
 
     void append_single(const char* stringToAppend);
     void append_single(const String& stringToAppend);
