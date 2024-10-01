@@ -6,10 +6,60 @@
 #include "doctest.h"
 #include "string.h"
 
+TEST_CASE("Check operator+= with String") {
+    String str1("Hello");
+    String str2(" World");
+
+    str1 += str2;
+    CHECK(std::strcmp(str1, "Hello World") == 0);
+    CHECK(str1.length() == 11);
+}
+
+TEST_CASE("Check operator+= with const char*") {
+    String str1("Hello");
+
+    str1 += " World";
+    CHECK(std::strcmp(str1, "Hello World") == 0);
+    CHECK(str1.length() == 11);
+}
+
+TEST_CASE("Check operator+ with String") {
+    String str1("Hello");
+    String str2(" World");
+
+    String result = str1 + str2;
+    CHECK(std::strcmp(result, "Hello World") == 0);
+    CHECK(result.length() == 11);
+}
+
+TEST_CASE("Check operator+ with const char*") {
+    String str1("Hello");
+
+    String result = str1 + " World";
+    CHECK(std::strcmp(result, "Hello World") == 0);
+    CHECK(result.length() == 11);
+}
+
+TEST_CASE("Check operator+ with const char* as first argument") {
+    String str1("World");
+
+    String result = String("Hello") + str1;
+    CHECK(std::strcmp(result, "HelloWorld") == 0);
+    CHECK(result.length() == 10);
+}
+
+TEST_CASE("Check implicit conversion to const char*") {
+    String str1("Hello World");
+
+    CHECK(std::strcmp(str1, "Hello World") == 0);
+
+    puts(str1);
+}
+
 TEST_CASE("Check += operator overload") {
     String str1 = "Hello";
     String str2 = " World";
-    CHECK(std::strcmp(str1.c_str(), "Hello") == 0);
+    CHECK(std::strcmp(str1, "Hello") == 0);
     str1 += str2;
     CHECK(std::strcmp(str1.c_str(), "Hello World") == 0);
 }
