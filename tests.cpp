@@ -5,7 +5,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include "string.h"
-#include "vld.h"
 
 TEST_CASE("Check operator+= with String") {
     mystring::String str1("Hello");
@@ -355,11 +354,4 @@ TEST_CASE("Check copy assignment operator and copy constructor") {
     CHECK(std::strcmp(wordCopy.c_str(), word.c_str()) == 0);
     mystring::String copyConstructed = mystring::String(word);
     CHECK(std::strcmp(copyConstructed.c_str(), word.c_str()) == 0);
-}
-
-TEST_CASE("MAKE IT LEAK") {
-    int* leak1 = new int[10];   // 10 ints werden allokiert, aber nicht freigegeben
-    char* leak2 = new char[20]; // 20 chars werden allokiert, aber nicht freigegeben
-
-    std::cout << "Programm läuft..." << std::endl;
 }
