@@ -1,4 +1,4 @@
-#include "String.h"
+#include "string.h"
 namespace mystring{
     // constructor without parameter
     String::String() : str_(nullptr) {}
