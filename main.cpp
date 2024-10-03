@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 
 int main() {
     // Speicherlecks erzeugen
@@ -12,4 +12,4 @@ int main() {
     // delete[] leak2;
 
     return 0; // VLD sollte hier die nicht freigegebenen Speicherblöcke erkennen
-}
+}*/
