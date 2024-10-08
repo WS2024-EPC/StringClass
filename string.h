@@ -33,11 +33,13 @@ namespace mystring{
 
             friend bool operator== (const Iterator& a, const Iterator& b) { return a.m_ptr == b.m_ptr; };
             friend bool operator!= (const Iterator& a, const Iterator& b) { return a.m_ptr != b.m_ptr; };
-            //TODO: also implement --, begin, end, stl::find, check if this works ^ 
+            //TODO: also implement --, begin, end, stl::find, check if this works ^
 
         private:
             pointer m_ptr;
         };
+        Iterator begin();
+        Iterator end();
 
         String& operator=(const String& other);
         String& operator=(String&& other) noexcept;

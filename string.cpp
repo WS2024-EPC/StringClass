@@ -178,5 +178,14 @@ namespace mystring{
     String::operator const char*() const {
         return c_str();
     }
+
+    String::Iterator String::begin() {
+        return String::Iterator(&str_[0]);
+    }
+
+    String::Iterator String::end() {
+        return String::Iterator(&str_[length_]);
+    }
+    //TODO: check if shit makes sense 
 }
 
