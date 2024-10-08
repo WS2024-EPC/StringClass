@@ -3,6 +3,8 @@
 #endif
 
 #include <iostream>
+#include <iterator> // For std::forward_iterator_tag
+#include <cstddef>  // For std::ptrdiff_t
 namespace mystring{
     class String {
     public:
@@ -11,6 +13,31 @@ namespace mystring{
         String(const String& other);
         String(String&& other) noexcept ;
         ~String();
+
+        struct Iterator{
+            using iterator_category = std::forward_iterator_tag; //Scan container forward multiple times, read and write value it points to!
+            using difference_type = std::ptrdiff_t; //signed int to identify distance between iterator steps
+            using value_type = char; //data type of one single thang (what it iterates over, single char in this case)
+            using pointer = char*;
+            using reference = char&;
+
+            Iterator(pointer ptr) : m_ptr(ptr) {} //initialize m_ptr, points to an element
+            reference operator*() const { return *m_ptr; }
+            pointer operator->() { return m_ptr; }
+
+            // Prefix increment
+            Iterator& operator++() { m_ptr++; return *this; }
+
+            // Postfix increment
+            Iterator operator++(int) { Iterator tmp = *this; ++(*this); return tmp; }
+
+            friend bool operator== (const Iterator& a, const Iterator& b) { return a.m_ptr == b.m_ptr; };
+            friend bool operator!= (const Iterator& a, const Iterator& b) { return a.m_ptr != b.m_ptr; };
+            //TODO: also implement --, begin, end, stl::find, check if this works ^ 
+
+        private:
+            pointer m_ptr;
+        };
 
         String& operator=(const String& other);
         String& operator=(String&& other) noexcept;
