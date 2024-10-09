@@ -180,12 +180,12 @@ namespace mystring{
     }
 
     String::Iterator String::begin() {
-        return String::Iterator(&str_[0]);
+        return String::Iterator(str_); //pointer to first char
     }
 
     String::Iterator String::end() {
-        return String::Iterator(&str_[length_]);
+        return String::Iterator(str_+length_); //pointer to '\0'
     }
-    //TODO: check if shit makes sense 
+    //TODO: check if shit makes sense
 }
 

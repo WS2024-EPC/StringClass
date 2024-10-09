@@ -26,10 +26,16 @@ namespace mystring{
             pointer operator->() { return m_ptr; }
 
             // Prefix increment
-            Iterator& operator++() { m_ptr++; return *this; }
+            Iterator& operator++() { m_ptr++; return *this; } //Gibt inkrementierten iterator zurück!
 
             // Postfix increment
-            Iterator operator++(int) { Iterator tmp = *this; ++(*this); return tmp; }
+            Iterator operator++(int) { Iterator tmp = *this; ++(*this); return tmp; } //Gibt urpsprüngliches zurück, aber danach is es inkrementiert ( auch bei --)
+
+            // Prefix decrement
+            Iterator& operator--() { m_ptr--; return *this; }
+
+            // Postfix decrement
+            Iterator operator--(int) { Iterator tmp = *this; --(*this); return tmp; }
 
             friend bool operator== (const Iterator& a, const Iterator& b) { return a.m_ptr == b.m_ptr; };
             friend bool operator!= (const Iterator& a, const Iterator& b) { return a.m_ptr != b.m_ptr; };

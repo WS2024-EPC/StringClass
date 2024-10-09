@@ -355,3 +355,15 @@ TEST_CASE("Check copy assignment operator and copy constructor") {
     mystring::String copyConstructed = mystring::String(word);
     CHECK(std::strcmp(copyConstructed.c_str(), word.c_str()) == 0);
 }
+
+TEST_CASE("Can iterate to end"){
+    mystring::String word = "Hello";
+    for(auto cha: word){
+        std::cout << cha << std::endl;
+    }
+    std::cout << (std::find(word.begin(), word.end(), 'H')!=word.end()) << std::endl;
+    for(auto it = --word.end(); it != --word.begin(); --it){
+        const auto output = *it;
+        std::cout << output << std::endl;
+    }
+}
