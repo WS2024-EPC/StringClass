@@ -367,3 +367,228 @@ TEST_CASE("Can iterate to end"){
         std::cout << output << std::endl;
     }
 }
+
+TEST_CASE("Iterator functionality tests") {
+    mystring::String str("Hello");
+
+    auto it = str.begin();
+    auto end = str.end();
+
+    CHECK(it != end);
+
+    CHECK(*it == 'H');
+    ++it; CHECK(*it == 'e');
+    ++it; CHECK(*it == 'l');
+    ++it; CHECK(*it == 'l');
+    ++it; CHECK(*it == 'o');
+    ++it; CHECK(it == end);
+
+    --it; CHECK(*it == 'o');
+    --it; CHECK(*it == 'l');
+    --it; CHECK(*it == 'l');
+    --it; CHECK(*it == 'e');
+    --it; CHECK(*it == 'H');
+
+    CHECK(it == str.begin());
+
+    it = str.begin();
+
+    auto prev_it = it++;
+    CHECK(*prev_it == 'H');
+    CHECK(*it == 'e');
+}
+
+TEST_CASE("Edge cases and empty string") {
+    mystring::String emptyStr;
+
+    auto it = emptyStr.begin();
+    auto end = emptyStr.end();
+
+    CHECK(it == end);
+
+    for (auto c : emptyStr) {
+        CHECK(false);
+    }
+
+    mystring::String anotherEmptyStr(nullptr);
+    CHECK(anotherEmptyStr.length() == 0);
+    CHECK(anotherEmptyStr.c_str() == nullptr);
+
+    it = anotherEmptyStr.begin();
+    end = anotherEmptyStr.end();
+
+    CHECK(it == end);
+}
+
+TEST_CASE("Nullptr cases") {
+    mystring::String str(nullptr);
+    CHECK(str.c_str() == nullptr);
+    CHECK(str.length() == 0);
+
+    auto it = str.begin();
+    auto end = str.end();
+
+    CHECK(it == end);
+}
+
+TEST_CASE("Iterators with move semantics") {
+    mystring::String str1("Move Test");
+    mystring::String str2(std::move(str1));
+
+    auto it = str2.begin();
+    auto end = str2.end();
+
+    CHECK(it != end);
+
+    CHECK(*it == 'M');
+    ++it; CHECK(*it == 'o');
+    ++it; CHECK(*it == 'v');
+
+    it = str2.end();
+    CHECK(it == end);
+}
+
+TEST_CASE("Multiple Iterators") {
+    mystring::String str("Hello");
+
+    auto it1 = str.begin();
+    auto it2 = str.begin();
+
+    CHECK(it1 == it2);
+
+    ++it1;
+    CHECK(it1 != it2);
+    CHECK(*it1 == 'e');
+    CHECK(*it2 == 'H');
+}
+
+TEST_CASE("String with special characters") {
+    mystring::String str("Hello, World!\n");
+
+    auto it = str.begin();
+    auto end = str.end();
+
+    CHECK(*it == 'H');
+    ++it; CHECK(*it == 'e');
+    ++it; CHECK(*it == 'l');
+    ++it; CHECK(*it == 'l');
+    ++it; CHECK(*it == 'o');
+    ++it; CHECK(*it == ',');
+    ++it; CHECK(*it == ' ');
+    ++it; CHECK(*it == 'W');
+    ++it; CHECK(*it == 'o');
+    ++it; CHECK(*it == 'r');
+    ++it; CHECK(*it == 'l');
+    ++it; CHECK(*it == 'd');
+    ++it; CHECK(*it == '!');
+    ++it; CHECK(*it == '\n');
+    ++it; CHECK(it == end);
+
+    it = str.end();
+    --it; CHECK(*it == '\n');
+}
+
+TEST_CASE("Iterator with large strings") {
+    mystring::String str("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+                "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
+                "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
+                "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+
+    auto it = str.begin();
+    auto end = str.end();
+
+    size_t count = 0;
+    while (it != end) {
+        ++count;
+        ++it;
+    }
+    CHECK(count == str.length());
+}
+
+TEST_CASE("Iterator comparison") {
+    mystring::String str("Compare Test");
+
+    auto it1 = str.begin();
+    auto it2 = str.begin();
+
+    CHECK(it1 == it2);
+    ++it2; CHECK(it1 != it2);
+    ++it1; CHECK(it1 == it2);
+}
+
+TEST_CASE("Basic iteration") {
+    mystring::String str("Hello");
+
+    auto it = str.begin();
+    CHECK(*it == 'H');
+    ++it; CHECK(*it == 'e');
+    ++it; CHECK(*it == 'l');
+    ++it; CHECK(*it == 'l');
+    ++it; CHECK(*it == 'o');
+    ++it; CHECK(it == str.end());
+}
+
+TEST_CASE("Empty string iteration") {
+    mystring::String str("");
+
+    auto it = str.begin();
+    CHECK(it == str.end());
+}
+
+TEST_CASE("Iterator increment and decrement") {
+    mystring::String str("Hello");
+
+    auto it = str.begin();
+    CHECK(*it == 'H');
+    ++it; CHECK(*it == 'e');
+    ++it; CHECK(*it == 'l');
+
+    --it; CHECK(*it == 'e');
+    --it; CHECK(*it == 'H');
+}
+
+TEST_CASE("Postfix increment and decrement") {
+    mystring::String str("Hello");
+
+    auto it = str.begin();
+    CHECK(*it == 'H');
+    it++; CHECK(*it == 'e');
+    it++; CHECK(*it == 'l');
+
+    it--; CHECK(*it == 'e');
+    it--; CHECK(*it == 'H');
+}
+
+TEST_CASE("Iterator equality and inequality") {
+    mystring::String str("Check");
+
+    auto it1 = str.begin();
+    auto it2 = str.begin();
+
+    CHECK(it1 == it2);
+    ++it2; CHECK(it1 != it2);
+    ++it1; CHECK(it1 == it2);
+}
+
+TEST_CASE("Edge cases - single character string") {
+    mystring::String str("A");
+
+    auto it = str.begin();
+    CHECK(*it == 'A');
+    ++it; CHECK(it == str.end());
+
+    --it; CHECK(*it == 'A');
+}
+
+TEST_CASE("Edge cases - string with spaces") {
+    mystring::String str("A B C");
+
+    auto it = str.begin();
+    CHECK(*it == 'A');
+    ++it; CHECK(*it == ' ');
+    ++it; CHECK(*it == 'B');
+    ++it; CHECK(*it == ' ');
+    ++it; CHECK(*it == 'C');
+    ++it; CHECK(it == str.end());
+}
