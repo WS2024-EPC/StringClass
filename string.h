@@ -5,7 +5,8 @@
 #include <iostream>
 #include <iterator> // For std::forward_iterator_tag
 #include <cstddef>  // For std::ptrdiff_t
-namespace mystring{
+
+namespace mystring {
     class String {
     public:
         String();
@@ -14,36 +15,50 @@ namespace mystring{
         String(String&& other) noexcept ;
         ~String();
 
-        struct Iterator{
-            using iterator_category = std::forward_iterator_tag; //Scan container forward multiple times, read and write value it points to!
-            using difference_type = std::ptrdiff_t; //signed int to identify distance between iterator steps
-            using value_type = char; //data type of one single thang (what it iterates over, single char in this case)
+        struct Iterator {
+            using iterator_category = std::forward_iterator_tag; // scan container forward multiple times, read and write value it points to!
+            using difference_type = std::ptrdiff_t; // signed int to identify distance between iterator steps
+            using value_type = char; // data type of one single thang (what it iterates over, single char in this case)
             using pointer = char*;
             using reference = char&;
 
-            Iterator(pointer ptr) : m_ptr(ptr) {} //initialize m_ptr, points to an element
+            Iterator(pointer ptr) : m_ptr(ptr) {} // initialize m_ptr, points to an element
             reference operator*() const { return *m_ptr; }
             pointer operator->() { return m_ptr; }
 
-            // Prefix increment
-            Iterator& operator++() { m_ptr++; return *this; } //Gibt inkrementierten iterator zurück!
+            // Prefix increment; returns incremented iterator
+            Iterator& operator++() {
+                ++m_ptr;
+                return *this;
+            }
 
-            // Postfix increment
-            Iterator operator++(int) { Iterator tmp = *this; ++(*this); return tmp; } //Gibt urpsprüngliches zurück, aber danach is es inkrementiert ( auch bei --)
+            // Postfix increment; returns original value, but still increments
+            Iterator operator++(int) {
+                Iterator tmp = *this;
+                ++(*this);
+                return tmp;
+            }
 
             // Prefix decrement
-            Iterator& operator--() { m_ptr--; return *this; }
+            Iterator& operator--() {
+                --m_ptr;
+                return *this;
+            }
 
             // Postfix decrement
-            Iterator operator--(int) { Iterator tmp = *this; --(*this); return tmp; }
+            Iterator operator--(int) {
+                Iterator tmp = *this;
+                --(*this);
+                return tmp;
+            }
 
-            friend bool operator== (const Iterator& a, const Iterator& b) { return a.m_ptr == b.m_ptr; };
-            friend bool operator!= (const Iterator& a, const Iterator& b) { return a.m_ptr != b.m_ptr; };
-            //TODO: also implement --, begin, end, stl::find, check if this works ^
+            bool operator==(const Iterator& other) const { return m_ptr == other.m_ptr; }
+            bool operator!=(const Iterator& other) const { return m_ptr != other.m_ptr; }
 
         private:
             pointer m_ptr;
         };
+
         Iterator begin();
         Iterator end();
 

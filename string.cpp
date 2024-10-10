@@ -1,9 +1,10 @@
 #include "string.h"
-namespace mystring{
+
+namespace mystring {
     // constructor without parameter
     String::String() : str_(nullptr) {}
 
-// constructor with char* parameter
+    // constructor with char* parameter
     String::String(const char* str) {
         if (str == nullptr) {
             str_ = nullptr;
@@ -15,7 +16,7 @@ namespace mystring{
         length_ = length;
     }
 
-// copy constructor
+    // copy constructor
     String::String(const String& other) {
         if (other.str_ == nullptr) {
             str_ = nullptr;
@@ -27,12 +28,12 @@ namespace mystring{
         charCopy(str_, other.c_str()); // copy new string into member
     }
 
-// destructor
+    // destructor
     String::~String() {
         delete[] str_;
     }
 
-// copy assignment operator
+    // copy assignment operator
     String& String::operator=(const String& other) {
         if (this == &other) {
             return *this; // same object: dont do anything
@@ -53,14 +54,14 @@ namespace mystring{
         return *this;
     }
 
-// move constructor
+    // move constructor
     String::String(String&& other) noexcept : str_(other.str_), length_(other.length_)
     {
         other.str_ = nullptr; // nullify the other object resource
         other.length_ = 0;
     }
 
-// move assignment operator
+    // move assignment operator
     String& String::operator=(String&& other) noexcept {
         if (this != &other) {
             delete[] str_; // free existing resource
@@ -72,9 +73,9 @@ namespace mystring{
         return *this;
     }
 
-// overwrite destination with toCopy
-// copy toCopy into destination
-// add null termination character at the end of toCopy in destination
+    // overwrite destination with toCopy
+    // copy toCopy into destination
+    // add null termination character at the end of toCopy in destination
     void String::charCopy(char* destination, const char* toCopy) {
         if (toCopy == nullptr) {
             return;
@@ -88,17 +89,17 @@ namespace mystring{
         destination[i] = 0;
     }
 
-// str_ getter
+    // str_ getter
     const char* String::c_str() const {
         return str_;
     }
 
-// length_ getter
+    // length_ getter
     size_t String::length() const {
         return length_;
     }
 
-// iterate through passed char* to determine length
+    // iterate through passed char* to determine length
     size_t String::charLength(const char* charArray) {
         if (charArray == nullptr) {
             return 0;
@@ -111,8 +112,8 @@ namespace mystring{
         return i;
     }
 
-// append function with one argument
-// used in append template functions
+    // append function with one argument
+    // used in append template functions
     void String::append_single(const char* stringToAppend) {
         if (stringToAppend == nullptr){
             return;
@@ -142,50 +143,49 @@ namespace mystring{
         length_ += appendLength;
     }
 
-// append using String object
+    // append using String object
     void String::append_single(const String& stringToAppend) {
         append_single(stringToAppend.c_str());
     }
 
-// operator+= for String
+    // operator+= for String
     String& String::operator+=(const String& other) {
         this->append(other);
         return *this;
     }
 
-// operator+= for const char*
+    // operator+= for const char*
     String& String::operator+=(const char* other) {
         this->append(other);
         return *this;
     }
 
-// operator+ for String
+    // operator+ for String
     String String::operator+(const String& other) const {
         String result(*this);
         result += other;
         return result;
     }
 
-// operator+ for const char*
+    // operator+ for const char*
     String String::operator+(const char* other) const {
         String result(*this);
         result += other;
         return result;
     }
 
-// conversion operator to const char*
-// allows implicit conversion from String to const char*
+    // conversion operator to const char*
+    // allows implicit conversion from String to const char*
     String::operator const char*() const {
         return c_str();
     }
 
     String::Iterator String::begin() {
-        return String::Iterator(str_); //pointer to first char
+        return {str_}; // (braced initializer list to avoid repeating type) pointer to first char
     }
 
     String::Iterator String::end() {
-        return String::Iterator(str_+length_); //pointer to '\0'
+        return {str_ + length_}; // pointer to '\0'
     }
-    //TODO: check if shit makes sense
 }
 
