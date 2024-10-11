@@ -180,11 +180,11 @@ namespace mystring {
         return c_str();
     }
 
-    String::Iterator String::begin() {
+    String::Iterator String::begin() const{
         return {str_}; // (braced initializer list to avoid repeating type) pointer to first char
     }
 
-    String::Iterator String::end() {
+    String::Iterator String::end() const{
         return {str_ + length_}; // pointer to '\0'
     }
 }

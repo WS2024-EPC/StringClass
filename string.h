@@ -59,8 +59,8 @@ namespace mystring {
             pointer m_ptr;
         };
 
-        Iterator begin();
-        Iterator end();
+        Iterator begin() const;
+        Iterator end() const;
 
         String& operator=(const String& other);
         String& operator=(String&& other) noexcept;
