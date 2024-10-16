@@ -5,6 +5,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "include/doctest.h"
 #include "string.h"
+#include "UniquePointer.h"
 
 TEST_CASE("Check operator+= with String") {
     mystring::String str1("Hello");
@@ -591,4 +592,126 @@ TEST_CASE("Edge cases - string with spaces") {
     ++it; CHECK(*it == ' ');
     ++it; CHECK(*it == 'C');
     ++it; CHECK(it == str.end());
+}
+
+TEST_CASE("Entity unique pointer test"){
+    struct Entity{
+        int id = -1;
+    };
+    UniquePtr<Entity> entityPointer(new Entity);
+    CHECK_EQ(entityPointer->id, -1);
+}
+
+TEST_CASE("String unique pointer test"){
+    UniquePtr<mystring::String> stringPointer(new mystring::String("Hello World"));
+    CHECK(strcmp(stringPointer->c_str(), "Hello World") == 0);
+}
+
+TEST_CASE("UniquePtr constructor test") {
+    UniquePtr<int> intPointer(new int(42));
+    CHECK(*intPointer == 42);
+}
+
+TEST_CASE("UniquePtr nullptr constructor test") {
+    UniquePtr<int> intPointer;
+    CHECK(!intPointer);
+}
+
+TEST_CASE("UniquePtr move constructor test") {
+    UniquePtr<int> intPointer1(new int(42));
+    UniquePtr<int> intPointer2(std::move(intPointer1));
+    CHECK(!intPointer1); //should not be set anymore
+    CHECK(*intPointer2 == 42); //intPointer2 should now store 42
+}
+
+TEST_CASE("UniquePtr move constructor nullptr test") {
+    UniquePtr<int> intPointer1;
+    UniquePtr<int> intPointer2(std::move(intPointer1));
+    CHECK(!intPointer1); //should not be set anymore
+    CHECK(!intPointer2); //intPointer2 should now store 42
+}
+
+TEST_CASE("UniquePtr move assignment operator test") {
+    UniquePtr<int> intPointer1(new int(42));
+    UniquePtr<int> intPointer2;
+    intPointer2 = std::move(intPointer1);
+    CHECK(!intPointer1); // intPointer1 not set anymore
+    CHECK(*intPointer2 == 42);
+}
+
+TEST_CASE("UniquePtr move assignment operator with nullptr test") {
+    UniquePtr<int> intPointer1;
+    UniquePtr<int> intPointer2;
+    intPointer2 = std::move(intPointer1);
+    CHECK(!intPointer1); // intPointer1 not set anymore
+    CHECK(!intPointer2);
+}
+
+TEST_CASE("UniquePtr release test") {
+    UniquePtr<int> intPointer(new int(64));
+    int* releasedPtr = intPointer.Release();
+    CHECK(!intPointer); //should not be set anymore
+    CHECK(*releasedPtr == 64);
+}
+
+TEST_CASE("UniquePtr release with nullptr test") {
+    UniquePtr<int> intPointer;
+    int* releasedPtr = intPointer.Release();
+    CHECK(!intPointer); //should not be set anymore
+    CHECK(!releasedPtr);
+}
+
+TEST_CASE("UniquePtr reset test") {
+    UniquePtr<mystring::String> strPointer(new mystring::String("word"));
+    strPointer.Reset();
+    CHECK(!strPointer);
+}
+
+TEST_CASE("UniquePtr reset with nullptr test") {
+    UniquePtr<mystring::String> strPointer(new mystring::String("word"));
+    strPointer.Reset(nullptr);
+    CHECK(!strPointer);
+}
+
+TEST_CASE("UniquePtr reset with new test") {
+    UniquePtr<mystring::String> strPointer(new mystring::String("word"));
+    strPointer.Reset(new mystring::String("other"));
+    CHECK(strcmp(strPointer->c_str(), "other") == 0);
+}
+
+TEST_CASE("UniquePtr swap test") {
+    UniquePtr<int> intPointer1(new int(15));
+    UniquePtr<int> intPointer2(new int(6));
+    intPointer1.Swap(intPointer2);
+    CHECK(*intPointer1 == 6);
+    CHECK(*intPointer2 == 15);
+}
+
+TEST_CASE("UniquePtr swap with nullptr test") {
+    UniquePtr<int> intPointer1(new int(15));
+    UniquePtr<int> intPointer2(nullptr);
+    intPointer1.Swap(intPointer2);
+    CHECK(!intPointer1);
+    CHECK(*intPointer2 == 15);
+}
+
+TEST_CASE("UniquePtr bool operator test") {
+    UniquePtr<int> intPointer;
+    CHECK(!intPointer); // not set: should be false
+    intPointer.Reset(new int(11));
+    CHECK(intPointer); // is set: should be true
+}
+
+TEST_CASE("UniquePtr custom deleter test") {
+    int deleteCount = 0;
+    auto deleter = [&deleteCount](int* p) {
+        deleteCount++;
+        delete p;
+    };
+
+    {
+        UniquePtr<int> intPointer(new int(25), deleter);
+    } // Hier sollte der deleter aufgerufen werden
+
+    CHECK(deleteCount == 1);
 }
