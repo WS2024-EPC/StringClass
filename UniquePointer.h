@@ -14,7 +14,7 @@ private:
     // Der Pointer
     T* ptr;
     // optionaler Custom Deleter
-    std::function<void(T*)> deleter;
+    std::function<void(T*)> deleter; //würde als function pointer keine 32 byte belegen, aber dann keine lambda (mit capture) funktionen nehmbar!
 
 public:
     // Konstruktoren (Standard -> mit nullptr initialisiert und Pointer wird deleted) *explicit damit keine ungewollten konvertierungen passieren
